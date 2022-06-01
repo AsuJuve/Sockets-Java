@@ -16,8 +16,8 @@ public class ClienteUDP{
     public void inicia()throws Exception{
         DatagramSocket socket=new DatagramSocket();
         
-        ClienteEscuchaUDP clienteEnvUDP=new ClienteEscuchaUDP(socket);
-        ClienteEnviaUDP clienteEscUDP=new ClienteEnviaUDP(socket, SERVER, PUERTO_SERVER);
+        ClienteEscuchaUDP clienteEscUDP=new ClienteEscuchaUDP(socket);
+        ClienteEnviaUDP clienteEnvUDP=new ClienteEnviaUDP(socket, SERVER, PUERTO_SERVER);
         
         clienteEnvUDP.start();
         clienteEscUDP.start();
