@@ -1,5 +1,6 @@
 workspace/
 out/
+target/
 cliente/target/
 servidortcp/target/
 servidorudp/target/
