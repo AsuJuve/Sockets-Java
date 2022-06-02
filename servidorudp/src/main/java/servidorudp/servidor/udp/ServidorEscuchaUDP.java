@@ -45,7 +45,7 @@ public class ServidorEscuchaUDP extends Thread{
                 
                 //Obtenemos IP Y PUERTO
                 puertoCliente = 40000;
-                addressCliente = InetAddress.getByName((String) data.get("ip"));
+                addressCliente = InetAddress.getByName((String) data.get("ipDestino"));
 
                 enviaMensaje(mensaje);
 

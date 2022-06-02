@@ -41,28 +41,25 @@ public class ServidorEscuchaTCP extends Thread {
             new DataInputStream(socket_cli.getInputStream()),
             new DataOutputStream(socket_cli.getOutputStream()));
         clientes[i] = manejador;
+        System.out.println("Cliente " + i + " conectado");
       }
+
+      System.out.println("Todos los clientes conectados");
 
       // Creamos un bucle do while en el que recogemos el mensaje
       // que nos ha enviado el cliente y después lo mostramos
       // por consola
+      ManejadorClienteHilo[] manejadorClienteHilo = new ManejadorClienteHilo[2];
+      for (int i = 0; i < 2; i++) {
+        manejadorClienteHilo[i] = new ManejadorClienteHilo(clientes[i], clientes);
+      }
+
+      for (int i = 0; i < 2; i++) {
+        manejadorClienteHilo[i].start();
+      }
+
       do {
-        for (ManejadorCliente cliente : clientes) {
-          String mensaje = "";
-          int size;
-          size = cliente.getClienteIn().readInt();
-
-          if (size > 0) {
-            byte[] archivoBytes = new byte[size];
-            in.readFully(archivoBytes, 0, archivoBytes.length);
-            mensaje = new String(archivoBytes);
-            JSONObject data = (JSONObject) JSONValue.parse(mensaje);
-
-            String addressClienteDestino = InetAddress.getByName((String) data.get("ip")).toString();
-            enviaArchivo(archivoBytes, addressClienteDestino);
-          }
-
-        }
+        
       } while (true);
     }
     // utilizamos el catch para capturar los errores que puedan surgir
@@ -72,16 +69,6 @@ public class ServidorEscuchaTCP extends Thread {
       // programa
       System.err.println(e.getMessage());
       System.exit(1);
-    }
-  }
-
-  private void enviaArchivo(byte[] archivoBytes, String ipCliente) throws Exception {
-    for (ManejadorCliente cliente : clientes) {
-      if (cliente.getCliente().getLocalAddress().toString().equals(ipCliente)) {
-        System.out.println("Enviando a " + ipCliente);
-        cliente.getClienteOut().writeInt(archivoBytes.length);
-        cliente.getClienteOut().write(archivoBytes);
-      }
     }
   }
 }
