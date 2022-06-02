@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import java.util.Base64;
+
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -15,11 +17,11 @@ import org.json.simple.JSONObject;
 
 public class Controlador {
   private ClienteUDP clienteUDP;
-  private ClienteTCP clientTCP;
+  private ClienteTCP clienteTCP;
 
   public Controlador(ClienteUDP clienteUDP, ClienteTCP clienteTCP){
     this.clienteUDP = clienteUDP;
-    this.clientTCP = clienteTCP;
+    this.clienteTCP = clienteTCP;
   }
   
   public void sendMessage(JTextArea chatArea, JTextField messageField, JTextField ipField) {
@@ -41,14 +43,27 @@ public class Controlador {
     clienteUDP.enviarMensaje(data.toString());
   }
 
-  public void sendFile() {
+  public void sendFile(JTextArea chatArea, JTextField ipField) {
+    String ip = ipField.getText();
     JFileChooser fileChooser = new JFileChooser();
     if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
       File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
       FileInputStream fs = null;
       try {
         fs = new FileInputStream(file);
-        byte[] data = fs.readAllBytes();
+        byte[] bytes = fs.readAllBytes();
+        String codificado = Base64.getEncoder().encodeToString(bytes);
+        String nombreArchivo = file.getName();
+
+        JSONObject data = new JSONObject();
+        data.put("tipo", "archivo");
+        data.put("ipDestino", ip);
+        data.put("mensaje", codificado);
+
+        String mensaje = " --- Archivo '"+nombreArchivo+"' enviado ---";
+        chatArea.setText(chatArea.getText()+"\n->Yo: "+mensaje);
+        clienteTCP.enviarArchivo(data.toString());
+
       } catch (IOException e) {
         e.printStackTrace();
       } finally {
@@ -60,7 +75,6 @@ public class Controlador {
           }
         }
       }
-      System.out.println("TODO!");
     }
   }
 
