@@ -22,6 +22,8 @@ import javax.swing.ScrollPaneConstants;
 import controlador.Controlador;
 
 public class GUI extends JFrame {
+  private Controlador controlador;
+
   static final Color BACKGROUND = new Color(0x1a1b26);
   static final Color FOREGROUND = new Color(0xabb2bf);
   static final Color LIGHT_BACKGROUND = new Color(0x2a2b36);
@@ -39,7 +41,10 @@ public class GUI extends JFrame {
   private JButton fileButton;
   private JButton videoButton;
 
-  public GUI() {
+  public GUI(Controlador controlador) {
+
+    this.controlador = controlador;
+
     mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
     mainPanel.setBackground(BACKGROUND);
@@ -106,7 +111,7 @@ public class GUI extends JFrame {
     messageButton.setMaximumSize(new Dimension(480, 40));
 
     messageButton.addActionListener(e -> {
-      Controlador.sendMessage(messageField, ipField);
+      this.controlador.sendMessage(messageField, ipField);
     });
 
     fileButton = new JButton("Enviar archivo");
@@ -117,7 +122,7 @@ public class GUI extends JFrame {
     fileButton.setMaximumSize(new Dimension(480, 40));
 
     fileButton.addActionListener(e -> {
-      Controlador.sendFile();
+      this.controlador.sendFile();
     });
 
     videoButton = new JButton("Videollamada");
@@ -128,7 +133,7 @@ public class GUI extends JFrame {
     videoButton.setMaximumSize(new Dimension(480, 40));
 
     videoButton.addActionListener(e -> {
-      Controlador.videoCall();
+      this.controlador.videoCall();
     });
 
     mainPanel.add(ipPanel);
