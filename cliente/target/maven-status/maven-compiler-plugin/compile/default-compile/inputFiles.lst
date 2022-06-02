@@ -1,0 +1,10 @@
+/home/elias/work/java/Sockets-Java/cliente/src/main/java/cliente/pruebas/PruebaCliente.java
+/home/elias/work/java/Sockets-Java/cliente/src/main/java/cliente/cliente/udp/PruebaClienteUDP.java
+/home/elias/work/java/Sockets-Java/cliente/src/main/java/cliente/cliente/udp/ClienteUDP.java
+/home/elias/work/java/Sockets-Java/cliente/src/main/java/cliente/cliente/tcp/ClienteTCP.java
+/home/elias/work/java/Sockets-Java/cliente/src/main/java/cliente/cliente/tcp/ClienteEnviaTCP.java
+/home/elias/work/java/Sockets-Java/cliente/src/main/java/cliente/cliente/udp/ClienteEnviaUDP.java
+/home/elias/work/java/Sockets-Java/cliente/src/main/java/cliente/vista/GUI.java
+/home/elias/work/java/Sockets-Java/cliente/src/main/java/cliente/cliente/udp/ClienteEscuchaUDP.java
+/home/elias/work/java/Sockets-Java/cliente/src/main/java/cliente/controlador/Controlador.java
+/home/elias/work/java/Sockets-Java/cliente/src/main/java/cliente/cliente/tcp/PruebaClienteTCP.java
