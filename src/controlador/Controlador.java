@@ -18,13 +18,15 @@ public class Controlador {
   }
   
   public void sendMessage(JTextField messageField, JTextField ipField) {
-    String message = messageField.getText();
-    if (message.isBlank()) {
+    String mensaje = messageField.getText();
+    if (mensaje.isBlank()) {
       System.out.println("Mensaje vacio");
       return;
     }
+
     messageField.setText("");
-    System.out.println("TODO!");
+    
+    cliente.enviar(mensaje);
   }
 
   public void sendFile() {
