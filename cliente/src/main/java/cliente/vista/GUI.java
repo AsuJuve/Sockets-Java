@@ -111,7 +111,7 @@ public class GUI extends JFrame {
     messageButton.setMaximumSize(new Dimension(480, 40));
 
     messageButton.addActionListener(e -> {
-      this.controlador.sendMessage(messageField, ipField);
+      this.controlador.sendMessage(chatArea, messageField, ipField);
     });
 
     fileButton = new JButton("Enviar archivo");
@@ -152,5 +152,9 @@ public class GUI extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
     setVisible(true);
+  }
+
+  public JTextArea getChatArea(){
+    return this.chatArea;
   }
 }

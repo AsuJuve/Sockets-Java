@@ -2,6 +2,8 @@ package cliente.cliente.udp;
 
 import java.net.*;
 import java.io.*;
+
+import cliente.vista.GUI;
  
 //declaramos la clase udp
 public class ClienteUDP{
@@ -25,5 +27,9 @@ public class ClienteUDP{
 
     public void enviar(String mensaje){
         clienteEnvUDP.enviar(mensaje);
+    }
+
+    public void setGUI(GUI gui){
+        clienteEscUDP.setGUI(gui);
     }
 }

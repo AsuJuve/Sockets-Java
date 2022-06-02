@@ -1,7 +1,13 @@
 package cliente.cliente.udp;
 
 import java.net.*;
+import javax.swing.JTextArea;
 import java.io.*;
+
+import cliente.vista.GUI;
+
+import org.json.simple.JSONValue;
+import org.json.simple.JSONObject;
  
 //declaramos la clase udp escucha
 public class ClienteEscuchaUDP extends Thread{
@@ -14,6 +20,8 @@ public class ClienteEscuchaUDP extends Thread{
     protected DatagramPacket servPaquete;
     //protected String SERVER;
     
+    private GUI gui;
+
     public  ClienteEscuchaUDP(DatagramSocket socketNuevo){
         socket=socketNuevo;
         //SERVER=servidor;
@@ -37,14 +45,22 @@ public class ClienteEscuchaUDP extends Thread{
                 cadenaMensaje = new String(recogerServidor_bytes).trim();
 
                 //Imprimimos el paquete recibido
-                System.out.println("Mensaje recibido \""+cadenaMensaje +"\" de "+
-                        servPaquete.getAddress()+"#"+servPaquete.getPort());
-            } while (!cadenaMensaje.startsWith("fin"));
+                JSONObject data = (JSONObject) JSONValue.parse(cadenaMensaje);
+                String mensaje = (String) data.get("mensaje");
+                String ip = servPaquete.getAddress().toString();
+
+                JTextArea chatArea = gui.getChatArea();
+                chatArea.setText(chatArea.getText()+"\n->"+ip+": "+mensaje);
+            } while (true);
         }
         catch (Exception e) {
             e.printStackTrace();
             System.err.println("Excepcion C: "+e.getMessage());
             System.exit(1);
         }
+    }
+
+    public void setGUI(GUI gui){
+        this.gui = gui;
     }
 }

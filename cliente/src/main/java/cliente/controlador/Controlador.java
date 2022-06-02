@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import cliente.cliente.udp.ClienteUDP;
@@ -18,7 +19,7 @@ public class Controlador {
     this.cliente = cliente;
   }
   
-  public void sendMessage(JTextField messageField, JTextField ipField) {
+  public void sendMessage(JTextArea chatArea, JTextField messageField, JTextField ipField) {
     String mensaje = messageField.getText();
     String ip = ipField.getText();
     if (mensaje.isBlank() || ip.isBlank()) {
@@ -26,6 +27,7 @@ public class Controlador {
       return;
     }
 
+    chatArea.setText(chatArea.getText()+"\n->Yo: "+mensaje);
     messageField.setText("");
 
     JSONObject data = new JSONObject();
