@@ -25,8 +25,8 @@ public class ClienteUDP{
         clienteEscUDP.start();
     }
 
-    public void enviar(String mensaje){
-        clienteEnvUDP.enviar(mensaje);
+    public void enviarMensaje(String mensaje){
+        clienteEnvUDP.enviarMensaje(mensaje);
     }
 
     public void setGUI(GUI gui){

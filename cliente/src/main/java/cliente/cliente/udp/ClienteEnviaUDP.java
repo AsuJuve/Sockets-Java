@@ -20,7 +20,7 @@ public class ClienteEnviaUDP{
         PUERTO_SERVER=puertoServidor;
     }
     
-    public void enviar(String mensaje) {
+    public void enviarMensaje(String mensaje) {
 
         byte[] mensaje_bytes;
         mensaje_bytes=mensaje.getBytes();

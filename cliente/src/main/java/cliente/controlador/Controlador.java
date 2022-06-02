@@ -8,15 +8,18 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import cliente.cliente.tcp.ClienteTCP;
 import cliente.cliente.udp.ClienteUDP;
 
 import org.json.simple.JSONObject;
 
 public class Controlador {
-  private ClienteUDP cliente;
+  private ClienteUDP clienteUDP;
+  private ClienteTCP clientTCP;
 
-  public Controlador(ClienteUDP cliente){
-    this.cliente = cliente;
+  public Controlador(ClienteUDP clienteUDP, ClienteTCP clienteTCP){
+    this.clienteUDP = clienteUDP;
+    this.clientTCP = clienteTCP;
   }
   
   public void sendMessage(JTextArea chatArea, JTextField messageField, JTextField ipField) {
@@ -35,7 +38,7 @@ public class Controlador {
     data.put("ipDestino", ip);
     data.put("mensaje", mensaje);
     
-    cliente.enviar(data.toString());
+    clienteUDP.enviarMensaje(data.toString());
   }
 
   public void sendFile() {
