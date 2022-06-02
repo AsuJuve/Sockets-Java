@@ -1,4 +1,4 @@
-package servidorudp.servidor.tcp;
+package servidortcp.servidor.tcp;
 
 public class PruebaServidorTCP{
     public static void main(String args[])throws Exception{

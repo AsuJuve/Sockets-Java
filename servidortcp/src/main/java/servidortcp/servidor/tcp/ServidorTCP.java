@@ -1,6 +1,6 @@
-package servidorudp.servidor.tcp;
+package servidortcp.servidor.tcp;
 
-import servidorudp.servidor.tcp.ServidorEscuchaTCP;
+import servidortcp.servidor.tcp.ServidorEscuchaTCP;
 
 public class ServidorTCP{
     protected final int PUERTO_SERVER;
