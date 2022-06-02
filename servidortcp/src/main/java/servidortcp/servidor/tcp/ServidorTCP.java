@@ -1,7 +1,5 @@
 package servidortcp.servidor.tcp;
 
-import servidortcp.servidor.tcp.ServidorEscuchaTCP;
-
 public class ServidorTCP{
     protected final int PUERTO_SERVER;
     
