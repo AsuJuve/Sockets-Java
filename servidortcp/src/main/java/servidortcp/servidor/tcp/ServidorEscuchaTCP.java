@@ -39,8 +39,15 @@ public class ServidorEscuchaTCP extends Thread {
             // por consola
             do {
                 String mensaje ="";
-                mensaje = in.readUTF();
-                System.out.println(mensaje);
+                int size;
+                size = in.readInt();
+
+                if (size > 0) {
+                  byte[] archivoBytes = new byte[size];
+                  in.readFully(archivoBytes, 0, archivoBytes.length);
+                  mensaje = new String(archivoBytes);
+                  System.out.println(mensaje);
+                }
             } while (true);
         }
         // utilizamos el catch para capturar los errores que puedan surgir

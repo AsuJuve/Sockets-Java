@@ -28,7 +28,9 @@ public class ClienteEnviaTCP{
     public void enviarArchivo(String archivo_bytes) {
         // Declaramos un bloque try y catch para controlar la ejecución del subprograma
         try {
-            out.writeUTF(archivo_bytes);
+            byte[] bytes = archivo_bytes.getBytes();
+            out.writeInt(bytes.length);
+            out.write(bytes);
         }
         // utilizamos el catch para capturar los errores que puedan surgir
         catch (Exception e) {

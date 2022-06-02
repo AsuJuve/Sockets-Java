@@ -59,6 +59,7 @@ public class Controlador {
         data.put("tipo", "archivo");
         data.put("ipDestino", ip);
         data.put("mensaje", codificado);
+        data.put("nombreArchivo", nombreArchivo);
 
         String mensaje = " --- Archivo '"+nombreArchivo+"' enviado ---";
         chatArea.setText(chatArea.getText()+"\n->Yo: "+mensaje);
