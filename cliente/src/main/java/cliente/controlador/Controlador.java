@@ -47,13 +47,13 @@ public class Controlador {
         fs = new FileInputStream(file);
         byte[] data = fs.readAllBytes();
       } catch (IOException e) {
-
+        e.printStackTrace();
       } finally {
         if (fs != null) {
           try {
             fs.close();
           } catch (IOException e) {
-
+            e.printStackTrace();
           }
         }
       }
