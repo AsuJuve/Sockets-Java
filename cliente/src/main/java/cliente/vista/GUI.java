@@ -122,7 +122,7 @@ public class GUI extends JFrame {
     fileButton.setMaximumSize(new Dimension(480, 40));
 
     fileButton.addActionListener(e -> {
-      this.controlador.sendFile();
+      this.controlador.sendFile(chatArea,ipField);
     });
 
     videoButton = new JButton("Videollamada");
