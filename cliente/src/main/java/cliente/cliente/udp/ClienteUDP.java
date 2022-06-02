@@ -14,7 +14,7 @@ public class ClienteUDP{
         PUERTO_SERVER=puertoS;
         SERVER=servidor;
 
-        DatagramSocket socket = new DatagramSocket();
+        DatagramSocket socket = new DatagramSocket(40000);
         clienteEscUDP = new ClienteEscuchaUDP(socket);
         clienteEnvUDP = new ClienteEnviaUDP(socket, SERVER, PUERTO_SERVER);
     }

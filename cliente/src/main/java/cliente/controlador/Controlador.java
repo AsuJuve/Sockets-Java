@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 
 import cliente.cliente.udp.ClienteUDP;
 
+import org.json.simple.JSONObject;
+
 public class Controlador {
   private ClienteUDP cliente;
 
@@ -18,14 +20,20 @@ public class Controlador {
   
   public void sendMessage(JTextField messageField, JTextField ipField) {
     String mensaje = messageField.getText();
-    if (mensaje.isBlank()) {
+    String ip = ipField.getText();
+    if (mensaje.isBlank() || ip.isBlank()) {
       System.out.println("Mensaje vacio");
       return;
     }
 
     messageField.setText("");
+
+    JSONObject data = new JSONObject();
+    data.put("tipo", "mensaje");
+    data.put("ipDestino", ip);
+    data.put("mensaje", mensaje);
     
-    cliente.enviar(mensaje);
+    cliente.enviar(data.toString());
   }
 
   public void sendFile() {

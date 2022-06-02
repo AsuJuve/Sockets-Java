@@ -1,6 +1,10 @@
 package servidorudp.servidor.udp;
 
 import java.net.*;
+
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 import java.io.*;
 
 public class ServidorEscuchaUDP extends Thread{
@@ -24,7 +28,6 @@ public class ServidorEscuchaUDP extends Thread{
         try {
             
             String mensaje ="";
-            String mensajeComp ="";
                        
             //Iniciamos el bucle
             do {
@@ -37,34 +40,14 @@ public class ServidorEscuchaUDP extends Thread{
                 mensaje_bytes=new byte[paquete.getLength()];
                 mensaje_bytes=paquete.getData();
                 mensaje = new String(mensaje_bytes,0,paquete.getLength()).trim();
-                
-                // Lo mostramos por pantalla
-                System.out.println("Mensaje recibido \""+mensaje+"\" del cliente "+
-                        paquete.getAddress()+"#"+paquete.getPort());
+
+                JSONObject data = (JSONObject) JSONValue.parse(mensaje);
                 
                 //Obtenemos IP Y PUERTO
-                puertoCliente = paquete.getPort();
-                addressCliente = paquete.getAddress();
+                puertoCliente = 40000;
+                addressCliente = InetAddress.getByName((String) data.get("ip"));
 
-                if (mensaje.startsWith("fin")) {
-                    mensajeComp="Transmisión con el servidor finalizada...";
-                    enviaMensaje(mensajeComp);
-                }
-                else if (mensaje.startsWith("hola")) {
-                    mensajeComp="¿Cómo estas?";
-                    
-                    //formateamos el mensaje de salida
-                    enviaMensaje(mensajeComp);  
-                }
-                else if (mensaje.startsWith("bien y tú")) {
-                    mensajeComp="También estoy bien, gracias";
-                    
-                    //formateamos el mensaje de salida
-                    enviaMensaje(mensajeComp);
-                }
-                else{
-                    mensajeComp="...";
-                }
+                enviaMensaje(mensaje);
 
             } while (!mensaje.startsWith("fin"));
         }

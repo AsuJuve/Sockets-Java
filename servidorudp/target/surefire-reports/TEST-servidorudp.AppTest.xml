@@ -5,7 +5,7 @@
     <property name="java.specification.version" value="11"/>
     <property name="sun.cpu.isalist" value=""/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/home/elias/work/java/Sockets-Java/servidorudp/target/test-classes:/home/elias/work/java/Sockets-Java/servidorudp/target/classes:/home/elias/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/elias/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="java.class.path" value="/home/elias/work/java/Sockets-Java/servidorudp/target/test-classes:/home/elias/work/java/Sockets-Java/servidorudp/target/classes:/home/elias/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/elias/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/elias/.m2/repository/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar:"/>
     <property name="java.vm.vendor" value="Void"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://voidlinux.org/"/>
@@ -15,9 +15,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="MX"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/openjdk11/lib"/>
-    <property name="sun.java.command" value="/home/elias/work/java/Sockets-Java/servidorudp/target/surefire/surefirebooter11744502269248012796.jar /home/elias/work/java/Sockets-Java/servidorudp/target/surefire 2022-06-01T22-42-29_782-jvmRun1 surefire82710229707966031tmp surefire_112980983084321445466tmp"/>
+    <property name="sun.java.command" value="/home/elias/work/java/Sockets-Java/servidorudp/target/surefire/surefirebooter10837905775384536958.jar /home/elias/work/java/Sockets-Java/servidorudp/target/surefire 2022-06-01T23-44-30_900-jvmRun1 surefire15873985288702776623tmp surefire_113371824232544929969tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/home/elias/work/java/Sockets-Java/servidorudp/target/test-classes:/home/elias/work/java/Sockets-Java/servidorudp/target/classes:/home/elias/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/elias/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="surefire.test.class.path" value="/home/elias/work/java/Sockets-Java/servidorudp/target/test-classes:/home/elias/work/java/Sockets-Java/servidorudp/target/classes:/home/elias/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/elias/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/elias/.m2/repository/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/home/elias"/>
     <property name="user.language" value="es"/>
@@ -31,7 +31,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/elias/work/java/Sockets-Java/servidorudp/target/surefire/surefirebooter11744502269248012796.jar"/>
+    <property name="surefire.real.class.path" value="/home/elias/work/java/Sockets-Java/servidorudp/target/surefire/surefirebooter10837905775384536958.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.12+7-void-r2"/>
     <property name="user.name" value="elias"/>
@@ -56,5 +56,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="servidorudp.AppTest" time="0"/>
+  <testcase name="shouldAnswerWithTrue" classname="servidorudp.AppTest" time="0.001"/>
 </testsuite>
