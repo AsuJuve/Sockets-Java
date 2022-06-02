@@ -19,11 +19,11 @@ public class Controlador {
   private ClienteUDP clienteUDP;
   private ClienteTCP clienteTCP;
 
-  public Controlador(ClienteUDP clienteUDP, ClienteTCP clienteTCP){
+  public Controlador(ClienteUDP clienteUDP, ClienteTCP clienteTCP) {
     this.clienteUDP = clienteUDP;
     this.clienteTCP = clienteTCP;
   }
-  
+
   public void sendMessage(JTextArea chatArea, JTextField messageField, JTextField ipField) {
     String mensaje = messageField.getText();
     String ip = ipField.getText();
@@ -32,14 +32,14 @@ public class Controlador {
       return;
     }
 
-    chatArea.setText(chatArea.getText()+"\n->Yo: "+mensaje);
+    chatArea.setText(chatArea.getText() + "\n->Yo: " + mensaje);
     messageField.setText("");
 
     JSONObject data = new JSONObject();
     data.put("tipo", "mensaje");
     data.put("ipDestino", ip);
     data.put("mensaje", mensaje);
-    
+
     clienteUDP.enviarMensaje(data.toString());
   }
 
@@ -51,19 +51,35 @@ public class Controlador {
       FileInputStream fs = null;
       try {
         fs = new FileInputStream(file);
-        byte[] bytes = fs.readAllBytes();
-        String codificado = Base64.getEncoder().encodeToString(bytes);
         String nombreArchivo = file.getName();
 
-        JSONObject data = new JSONObject();
-        data.put("tipo", "archivo");
-        data.put("ipDestino", ip);
-        data.put("mensaje", codificado);
-        data.put("nombreArchivo", nombreArchivo);
+        while (true) {
+          byte[] bytes = new byte[1500];
+          int r = fs.readNBytes(bytes, 0, 1500);
+          if (r == 0) {
+            break;
+          }
+          // System.out.println("Enviando " + r + " bytes");
+          // System.out.println("Restantes " + fs.available() + " bytes");
+          String codificado = Base64.getEncoder().encodeToString(bytes);
 
-        String mensaje = " --- Archivo '"+nombreArchivo+"' enviado ---";
-        chatArea.setText(chatArea.getText()+"\n->Yo: "+mensaje);
-        clienteTCP.enviarArchivo(data.toString());
+          JSONObject data = new JSONObject();
+          data.put("tipo", "archivo");
+          data.put("ipDestino", ip);
+          data.put("mensaje", codificado);
+          data.put("nombreArchivo", nombreArchivo);
+
+          if (fs.available() == 0) {
+            data.put("accion", "finalizar");
+          } else {
+            data.put("accion", "guardar");
+          }
+
+          clienteTCP.enviarArchivo(data.toString());
+        }
+
+        String mensaje = " --- Archivo '" + nombreArchivo + "' enviado ---";
+        chatArea.setText(chatArea.getText() + "\n->Yo: " + mensaje);
 
       } catch (IOException e) {
         e.printStackTrace();
