@@ -12,16 +12,19 @@ import javax.swing.JTextField;
 
 import cliente.cliente.tcp.ClienteTCP;
 import cliente.cliente.udp.ClienteUDP;
+import cliente.tiempo.Cronometro;
 
 import org.json.simple.JSONObject;
 
 public class Controlador {
   private ClienteUDP clienteUDP;
   private ClienteTCP clienteTCP;
+  private Cronometro cronometro;
 
   public Controlador(ClienteUDP clienteUDP, ClienteTCP clienteTCP) {
     this.clienteUDP = clienteUDP;
     this.clienteTCP = clienteTCP;
+    cronometro = new Cronometro();
   }
 
   public void sendMessage(JTextArea chatArea, JTextField messageField, JTextField ipField) {
@@ -43,7 +46,7 @@ public class Controlador {
     clienteUDP.enviarMensaje(data.toString());
   }
 
-  public void sendFile(JTextArea chatArea, JTextField ipField) {
+  public void sendFile(JTextArea chatArea, JTextArea logArea, JTextField ipField) {
     String ip = ipField.getText();
     JFileChooser fileChooser = new JFileChooser();
     if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -56,6 +59,7 @@ public class Controlador {
         String nombreArchivo = file.getName();
 
         while (true) {
+          cronometro.reiniciar();
           byte[] bytes = new byte[1500];
           int r = fs.readNBytes(bytes, 0, 1500);
           if (r == 0) {
@@ -82,7 +86,11 @@ public class Controlador {
             }
           }
 
+          
           clienteTCP.enviarArchivo(data.toString());
+          double segundosTranscurridos = cronometro.obtenerTiempoTranscurrido();
+          double bps = (r*8)/segundosTranscurridos;
+          logArea.setText(logArea.getText() + bps+"bps");
         }
 
         String mensaje = " --- Archivo '" + nombreArchivo + "' enviado ---";

@@ -34,6 +34,7 @@ public class GUI extends JFrame {
   private JLabel ipLabel;
   private JTextField ipField;
   private JTextArea chatArea;
+  private JTextArea logArea;
   private JPanel messagePanel;
   private JLabel messageLabel;
   private JTextField messageField;
@@ -79,9 +80,22 @@ public class GUI extends JFrame {
     chatArea.setMaximumSize(new Dimension(480, 160));
     chatArea.setFont(biggerFont);
 
-    JScrollPane scroll = new JScrollPane(chatArea);
-    scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-    scroll.setMaximumSize(new Dimension(480, 160));
+    JScrollPane chatScroll = new JScrollPane(chatArea);
+    chatScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+    chatScroll.setMaximumSize(new Dimension(480, 160));
+
+    // Log Area
+
+    logArea = new JTextArea(5,10);
+    logArea.setEditable(false);
+    logArea.setBackground(LIGHT_BACKGROUND);
+    logArea.setForeground(FOREGROUND);
+    logArea.setMaximumSize(new Dimension(480, 40));
+    logArea.setFont(biggerFont);
+
+    JScrollPane logScroll = new JScrollPane(logArea);
+    logScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+    logScroll.setMaximumSize(new Dimension(480, 40));
 
     // Message Panel
 
@@ -122,7 +136,7 @@ public class GUI extends JFrame {
     fileButton.setMaximumSize(new Dimension(480, 40));
 
     fileButton.addActionListener(e -> {
-      this.controlador.sendFile(chatArea,ipField);
+      this.controlador.sendFile(chatArea,logArea, ipField);
     });
 
     videoButton = new JButton("Videollamada");
@@ -138,7 +152,7 @@ public class GUI extends JFrame {
 
     mainPanel.add(ipPanel);
     mainPanel.add(Box.createRigidArea(new Dimension(480, 30)));
-    mainPanel.add(scroll);
+    mainPanel.add(chatScroll);
     mainPanel.add(Box.createRigidArea(new Dimension(480, 30)));
     mainPanel.add(messagePanel);
     mainPanel.add(Box.createRigidArea(new Dimension(480, 10)));
@@ -147,6 +161,8 @@ public class GUI extends JFrame {
     mainPanel.add(fileButton);
     mainPanel.add(Box.createRigidArea(new Dimension(480, 10)));
     mainPanel.add(videoButton);
+    mainPanel.add(Box.createRigidArea(new Dimension(480, 10)));
+    mainPanel.add(logScroll);
 
     add(mainPanel, BorderLayout.CENTER);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
