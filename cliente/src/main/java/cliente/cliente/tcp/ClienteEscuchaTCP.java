@@ -1,6 +1,7 @@
 package cliente.cliente.tcp;
 
 import java.net.*;
+import java.util.Base64;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -47,10 +48,23 @@ public class ClienteEscuchaTCP extends Thread {
           in.readFully(archivoBytes, 0, archivoBytes.length);
           mensaje = new String(archivoBytes);
           JSONObject data = (JSONObject) JSONValue.parse(mensaje);
+          String accion = (String) data.get("accion");
+          String nombreArchivo = (String) data.get("nombreArchivo");
+          String mensajeCodificado = (String) data.get("mensaje");
+          byte mensajeDecodificado[] = Base64.getDecoder().decode(mensajeCodificado);
 
-          System.out.println(data.toString());
+          OutputStream outputStream = null;
+
+          if (accion.equals("iniciar")){
+            outputStream = new FileOutputStream(nombreArchivo);
+            outputStream.write(mensajeDecodificado);
+          }else if(accion.equals("guardar")){
+            outputStream.write(mensajeDecodificado);
+          }else if(accion.equals("finalizar")){
+            outputStream.write(mensajeDecodificado);
+            outputStream.close();
+          }
         }
-
       } while (true);
     }
     // utilizamos el catch para capturar los errores que puedan surgir

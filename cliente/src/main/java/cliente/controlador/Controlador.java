@@ -49,6 +49,8 @@ public class Controlador {
     if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
       File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
       FileInputStream fs = null;
+      boolean primerPaquete = true;
+
       try {
         fs = new FileInputStream(file);
         String nombreArchivo = file.getName();
@@ -69,10 +71,15 @@ public class Controlador {
           data.put("mensaje", codificado);
           data.put("nombreArchivo", nombreArchivo);
 
-          if (fs.available() == 0) {
-            data.put("accion", "finalizar");
-          } else {
-            data.put("accion", "guardar");
+          if (primerPaquete){
+            data.put("accion", "iniciar");
+            primerPaquete = false;
+          }else{
+            if (fs.available() == 0) {
+              data.put("accion", "finalizar");
+            } else {
+              data.put("accion", "guardar");
+            }
           }
 
           clienteTCP.enviarArchivo(data.toString());
