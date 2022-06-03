@@ -31,6 +31,8 @@ public class ClienteEscuchaTCP extends Thread {
   public void run() {
     // declaramos una variable de tipo string
 
+    OutputStream outputStream = null;
+
     // Declaramos un bloque try y catch para controlar la ejecución del subprograma
     try {
       // Creamos un bucle do while en el que enviamos al servidor el mensaje
@@ -41,7 +43,7 @@ public class ClienteEscuchaTCP extends Thread {
         String mensaje = "";
         int size;
         size = in.readInt();
-        System.out.println(size);
+        System.out.println("Tamanio: " + size);
 
         if (size > 0) {
           byte[] archivoBytes = new byte[size];
@@ -53,14 +55,15 @@ public class ClienteEscuchaTCP extends Thread {
           String mensajeCodificado = (String) data.get("mensaje");
           byte mensajeDecodificado[] = Base64.getDecoder().decode(mensajeCodificado);
 
-          OutputStream outputStream = null;
 
-          if (accion.equals("iniciar")){
+          System.out.println("Accion: " + accion);
+
+          if (accion.equals("iniciar")) {
             outputStream = new FileOutputStream(nombreArchivo);
             outputStream.write(mensajeDecodificado);
-          }else if(accion.equals("guardar")){
+          } else if (accion.equals("guardar")) {
             outputStream.write(mensajeDecodificado);
-          }else if(accion.equals("finalizar")){
+          } else if (accion.equals("finalizar")) {
             outputStream.write(mensajeDecodificado);
             outputStream.close();
           }
@@ -72,6 +75,7 @@ public class ClienteEscuchaTCP extends Thread {
       // si existen errores los mostrará en la consola y después saldrá del
       // programa
       System.err.println(e.getMessage());
+      e.printStackTrace();
       System.exit(1);
     }
   }
