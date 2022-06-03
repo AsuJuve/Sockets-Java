@@ -18,9 +18,11 @@ import org.json.simple.JSONObject;
 
 public class Controlador {
   private ClienteUDP clienteUDP;
+  private ClienteTCP clienteTCP;
 
   public Controlador(ClienteUDP clienteUDP, ClienteTCP clienteTCP) {
     this.clienteUDP = clienteUDP;
+    this.clienteTCP = clienteTCP;
   }
 
   public void sendMessage(JTextArea chatArea, JTextField messageField, JTextField ipField) {
@@ -43,7 +45,7 @@ public class Controlador {
   }
 
   public void sendFile(JTextArea chatArea, JTextArea logArea, JTextField ipField) {
-    EnviarArchivo enviarArchivo = new EnviarArchivo(chatArea, logArea, ipField);
+    EnviarArchivo enviarArchivo = new EnviarArchivo(chatArea, logArea, ipField, clienteTCP);
     enviarArchivo.start();
   }
 
