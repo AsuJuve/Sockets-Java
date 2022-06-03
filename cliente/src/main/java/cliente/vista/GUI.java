@@ -90,7 +90,7 @@ public class GUI extends JFrame {
     logArea.setEditable(false);
     logArea.setBackground(LIGHT_BACKGROUND);
     logArea.setForeground(FOREGROUND);
-    logArea.setMaximumSize(new Dimension(480, 40));
+    logArea.setMaximumSize(new Dimension(480, 80));
     logArea.setFont(biggerFont);
 
     JScrollPane logScroll = new JScrollPane(logArea);

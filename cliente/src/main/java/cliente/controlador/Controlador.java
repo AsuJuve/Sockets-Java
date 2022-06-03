@@ -57,9 +57,9 @@ public class Controlador {
       try {
         fs = new FileInputStream(file);
         String nombreArchivo = file.getName();
+        cronometro.reiniciar();
 
         while (true) {
-          cronometro.reiniciar();
           byte[] bytes = new byte[1500];
           int r = fs.readNBytes(bytes, 0, 1500);
           if (r == 0) {
@@ -89,8 +89,11 @@ public class Controlador {
           
           clienteTCP.enviarArchivo(data.toString());
           double segundosTranscurridos = cronometro.obtenerTiempoTranscurrido();
-          double bps = (r*8)/segundosTranscurridos;
-          logArea.setText(logArea.getText() + bps+"bps");
+          if (segundosTranscurridos >= 1.0) {
+            double bps = (r*8)/segundosTranscurridos;
+            logArea.setText(logArea.getText() + bps+"bps\n");
+            cronometro.reiniciar();
+          }
         }
 
         String mensaje = " --- Archivo '" + nombreArchivo + "' enviado ---";
