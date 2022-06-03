@@ -8,17 +8,13 @@ import java.io.*;
 public class ClienteEnviaTCP{
     // declaramos un objeto socket para realizar la comunicación
     protected Socket socket;
-    protected final int PUERTO_SERVER;
-    protected final String SERVER;
     protected DataOutputStream out;
     
-    public ClienteEnviaTCP(String servidor, int puertoS)throws Exception{
-        PUERTO_SERVER=puertoS;
-        SERVER=servidor;
+    public ClienteEnviaTCP(Socket socket) throws Exception{
         
         // Instanciamos un socket con la dirección del destino y el
         // puerto que vamos a utilizar para la comunicación
-        socket = new Socket(SERVER,PUERTO_SERVER);
+        this.socket = socket;
         
         // Declaramos e instanciamos el objeto DataOutputStream
         // que nos valdrá para enviar datos al servidor destino

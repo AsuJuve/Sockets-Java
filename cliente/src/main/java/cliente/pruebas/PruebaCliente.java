@@ -17,6 +17,8 @@ public class PruebaCliente {
         
         GUI gui = new GUI(controlador);
         clienteUDP.setGUI(gui);
+        clienteTCP.setGUI(gui);
         clienteUDP.iniciaEscucha();
+        clienteTCP.iniciaEscucha();
     }
 }

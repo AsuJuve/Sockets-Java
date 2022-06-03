@@ -1,62 +1,68 @@
 package cliente.cliente.tcp;
 
 import java.net.*;
-//importar la libreria java.net
- 
+
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
+import cliente.vista.GUI;
+
+// importar la libreria java.net
 import java.io.*;
-//importar la libreria java.io
-// declaramos la clase servidortcp
- 
+// importar la libreria java.io
+
+// declararamos la clase clientetcp
 public class ClienteEscuchaTCP extends Thread {
-    // declaramos un objeto ServerSocket para realizar la comunicación
-    protected ServerSocket socket;
-    protected DataInputStream in;
-    protected Socket socket_cli;
-    protected final int PUERTO_SERVER;
-    
-    public ClienteEscuchaTCP(int puertoS)throws Exception{
-        PUERTO_SERVER=puertoS;
-        // Instanciamos un ServerSocket con la dirección del destino y el
-        // puerto que vamos a utilizar para la comunicación
+  protected DataInputStream in;
+  // declaramos un objeto socket para realizar la comunicación
+  protected Socket socket;
+  private GUI gui;
 
-        socket = new ServerSocket(PUERTO_SERVER);
-    }
-    // método principal main de la clase
-    public void run() {
-        // Declaramos un bloque try y catch para controlar la ejecución del subprograma
-        try {
-            // Creamos un socket_cli al que le pasamos el contenido del objeto socket después
-            // de ejecutar la función accept que nos permitirá aceptar conexiones de clientes
-            socket_cli = socket.accept();
+  public ClienteEscuchaTCP(Socket socket) throws Exception {
 
-            // Declaramos e instanciamos el objeto DataInputStream
-            // que nos valdrá para recibir datos del cliente
+    // Instanciamos un socket con la dirección del destino y el
+    // puerto que vamos a utilizar para la comunicación
+    this.socket = socket;
 
-            in =new DataInputStream(socket_cli.getInputStream());
+    in = new DataInputStream(socket.getInputStream());
+  }
 
-            // Creamos un bucle do while en el que recogemos el mensaje
-            // que nos ha enviado el cliente y después lo mostramos
-            // por consola
-            do {
-                String mensaje ="";
-                int size;
-                size = in.readInt();
+  public void run() {
+    // declaramos una variable de tipo string
 
-                if (size > 0) {
-                  byte[] archivoBytes = new byte[size];
-                  in.readFully(archivoBytes, 0, archivoBytes.length);
-                  mensaje = new String(archivoBytes);
-                  System.out.println(mensaje);
-                }
-            } while (true);
+    // Declaramos un bloque try y catch para controlar la ejecución del subprograma
+    try {
+      // Creamos un bucle do while en el que enviamos al servidor el mensaje
+      // los datos que hemos obtenido despues de ejecutar la función
+      // "readLine" en la instancia "in"
+      do {
+
+        String mensaje = "";
+        int size;
+        size = in.readInt();
+        System.out.println(size);
+
+        if (size > 0) {
+          byte[] archivoBytes = new byte[size];
+          in.readFully(archivoBytes, 0, archivoBytes.length);
+          mensaje = new String(archivoBytes);
+          JSONObject data = (JSONObject) JSONValue.parse(mensaje);
+
+          System.out.println(data.toString());
         }
-        // utilizamos el catch para capturar los errores que puedan surgir
-        catch (Exception e) {
 
-            // si existen errores los mostrará en la consola y después saldrá del
-            // programa
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
+      } while (true);
     }
+    // utilizamos el catch para capturar los errores que puedan surgir
+    catch (Exception e) {
+      // si existen errores los mostrará en la consola y después saldrá del
+      // programa
+      System.err.println(e.getMessage());
+      System.exit(1);
+    }
+  }
+
+  public void setGUI(GUI gui) {
+    this.gui = gui;
+  }
 }
