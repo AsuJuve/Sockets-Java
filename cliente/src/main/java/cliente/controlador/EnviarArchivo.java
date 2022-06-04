@@ -81,7 +81,7 @@ public class EnviarArchivo extends Thread {
           double segundosTranscurridos = cronometro.obtenerTiempoTranscurrido();
           if (segundosTranscurridos >= 1.0) {
             double bps = (enviados * 8) / segundosTranscurridos;
-            double tiempoRestante = (fs.available() * 8) / bps;
+            double tiempoRestante = (fs.available()) / (bps / 8);
             tiempoTranscurrido += segundosTranscurridos;
             logArea.setText(logArea.getText() + (int) bps + "bps\n");
             logArea.setText(logArea.getText() + (int) tiempoTranscurrido + " segundos transcurridos\n");
@@ -106,6 +106,5 @@ public class EnviarArchivo extends Thread {
         }
       }
     }
-
   }
 }

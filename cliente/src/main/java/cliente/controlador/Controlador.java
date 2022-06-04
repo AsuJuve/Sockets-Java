@@ -1,29 +1,13 @@
 package cliente.controlador;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import java.util.Base64;
-import java.util.zip.Deflater;
-import java.nio.ByteBuffer;
-
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import cliente.cliente.tcp.ClienteTCP;
 import cliente.cliente.udp.ClienteUDP;
-import cliente.compresion.Compresor;
-import cliente.tiempo.Cronometro;
 
 import org.json.simple.JSONObject;
-
-import com.github.sarxos.webcam.Webcam;
 
 public class Controlador {
   private ClienteUDP clienteUDP;

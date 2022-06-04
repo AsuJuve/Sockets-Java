@@ -2,10 +2,6 @@ package servidortcp.servidor.tcp;
 
 import java.net.*;
 //importar la libreria java.net
-import java.util.ArrayList;
-
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 import java.io.*;
 //importar la libreria java.io

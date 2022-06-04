@@ -5,8 +5,6 @@ import java.net.*;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-import java.io.*;
-
 public class ServidorEscuchaUDP extends Thread{
     protected DatagramSocket socket;
     protected final int PUERTO_SERVER;

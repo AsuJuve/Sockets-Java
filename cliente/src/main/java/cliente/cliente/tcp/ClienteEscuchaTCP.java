@@ -3,6 +3,8 @@ package cliente.cliente.tcp;
 import java.net.*;
 import java.util.Base64;
 
+import javax.swing.JTextArea;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -61,6 +63,9 @@ public class ClienteEscuchaTCP extends Thread {
           if (accion.equals("iniciar")) {
             outputStream = new FileOutputStream(nombreArchivo);
             outputStream.write(mensajeDecodificado);
+            String log = " --- Archivo '" + nombreArchivo + "' recibido ---";
+            JTextArea chatArea = gui.getChatArea();
+            chatArea.setText(chatArea.getText() + "\n-> " + log);
           } else if (accion.equals("guardar")) {
             outputStream.write(mensajeDecodificado);
           } else if (accion.equals("finalizar")) {

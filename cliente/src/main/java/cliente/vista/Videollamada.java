@@ -1,17 +1,10 @@
 package cliente.vista;
 
-import javax.imageio.ImageIO;
-
 import java.awt.image.BufferedImage;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-import javax.swing.BorderFactory;
 
 public class Videollamada extends JFrame {
   static final Color BACKGROUND = new Color(0x1a1b26);

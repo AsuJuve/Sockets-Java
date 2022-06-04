@@ -1,7 +1,6 @@
 package cliente.cliente.udp;
 
 import java.net.*;
-import java.io.*;
 
 import cliente.vista.GUI;
  

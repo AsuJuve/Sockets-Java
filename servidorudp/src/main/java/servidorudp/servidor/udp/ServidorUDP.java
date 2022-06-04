@@ -1,7 +1,5 @@
 package servidorudp.servidor.udp;
 
-import servidorudp.servidor.udp.ServidorEscuchaUDP;
-
 public class ServidorUDP{
     public final int PUERTO_SERVER;
     
