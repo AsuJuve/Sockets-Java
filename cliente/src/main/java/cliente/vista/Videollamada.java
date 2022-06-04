@@ -14,25 +14,24 @@ import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
 
 public class Videollamada extends JFrame {
-    static final Color BACKGROUND = new Color(0x1a1b26);
-    static final Color FOREGROUND = new Color(0xabb2bf);
-    static final Color LIGHT_BACKGROUND = new Color(0x2a2b36);
-    static final Color MAIN_COLOR = new Color(0x7aa2f7);
-    private JPanel videoArea;
+  static final Color BACKGROUND = new Color(0x1a1b26);
+  static final Color FOREGROUND = new Color(0xabb2bf);
+  static final Color LIGHT_BACKGROUND = new Color(0x2a2b36);
+  static final Color MAIN_COLOR = new Color(0x7aa2f7);
+  private ImagePanel videoArea;
 
-    public void setImagen(BufferedImage imagen){
-        videoArea = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(imagen, 0, 0, null);
-            }
-        };
+  public Videollamada() {
+    this.videoArea = new ImagePanel();
+    add(videoArea, BorderLayout.CENTER);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setSize(600, 600);
+  }
 
-        getContentPane().removeAll();
-        add(videoArea, BorderLayout.CENTER);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
-        setVisible(true);
+  public void setImagen(BufferedImage imagen) {
+    this.videoArea.setImage(imagen);
+    videoArea.repaint();
+    if (!isVisible()) {
+      setVisible(true);
     }
+  }
 }
