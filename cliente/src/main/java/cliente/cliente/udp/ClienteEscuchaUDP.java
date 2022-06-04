@@ -1,10 +1,16 @@
 package cliente.cliente.udp;
 
 import java.net.*;
+import java.util.Base64;
+
 import javax.swing.JTextArea;
 import java.io.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+
 import cliente.vista.GUI;
+import cliente.vista.Videollamada;
 
 import org.json.simple.JSONValue;
 import org.json.simple.JSONObject;
@@ -51,10 +57,14 @@ public class ClienteEscuchaUDP extends Thread{
                 String tipo = (String) data.get("tipo");
 
                 if (tipo.equals("mensaje")) {
-                  JTextArea chatArea = gui.getChatArea();
-                  chatArea.setText(chatArea.getText()+"\n->"+ip+": "+mensaje);
+                    JTextArea chatArea = gui.getChatArea();
+                    chatArea.setText(chatArea.getText()+"\n->"+ip+": "+mensaje);
                 } else if (tipo.equals("video")) {
-                  System.out.println("Video recibido");
+                    byte[] mensajeBytes = Base64.getDecoder().decode(mensaje);
+                    InputStream is = new ByteArrayInputStream(mensajeBytes);
+                    BufferedImage imagenBytes = ImageIO.read(is);
+                    Videollamada videollamada = gui.getVideollamada();
+                    videollamada.setImagen(imagenBytes);
                 }
             } while (true);
         }
