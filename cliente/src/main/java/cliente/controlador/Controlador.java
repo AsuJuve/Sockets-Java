@@ -11,6 +11,7 @@ import java.util.zip.Deflater;
 import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -27,6 +28,7 @@ import com.github.sarxos.webcam.Webcam;
 public class Controlador {
   private ClienteUDP clienteUDP;
   private ClienteTCP clienteTCP;
+  EnviarVideo enviarVideo;
 
   public Controlador(ClienteUDP clienteUDP, ClienteTCP clienteTCP) {
     this.clienteUDP = clienteUDP;
@@ -57,8 +59,15 @@ public class Controlador {
     enviarArchivo.start();
   }
 
-  public void videoCall(JTextField ipField) {
-    EnviarVideo enviarVideo = new EnviarVideo(this.clienteUDP, ipField);
-    enviarVideo.start();
+  public void videoCall(JTextField ipField, JButton videoButton) {
+    String textoButton = videoButton.getText();
+    if (textoButton.equals("Videollamada")) {
+      enviarVideo = new EnviarVideo(this.clienteUDP, ipField);
+      enviarVideo.start();
+      videoButton.setText("Detener videollamada");
+    } else {
+      enviarVideo.setActive(false);
+      videoButton.setText("Videollamada");
+    }
   }
 }

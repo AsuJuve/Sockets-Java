@@ -149,7 +149,7 @@ public class GUI extends JFrame {
     videoButton.setMaximumSize(new Dimension(480, 40));
 
     videoButton.addActionListener(e -> {
-      this.controlador.videoCall(ipField);
+      this.controlador.videoCall(ipField, videoButton);
     });
 
     mainPanel.add(ipPanel);

@@ -14,7 +14,7 @@ public class ServidorEscuchaUDP extends Thread{
     
     protected InetAddress addressCliente;
     protected byte[] mensaje2_bytes;
-    protected final int MAX_BUFFER=32768;
+    protected final int MAX_BUFFER=65536;
     protected DatagramPacket paquete;
     protected byte[] mensaje_bytes;
     protected DatagramPacket envPaquete;
@@ -52,6 +52,7 @@ public class ServidorEscuchaUDP extends Thread{
             } while (!mensaje.startsWith("fin"));
         }
         catch (Exception e) {
+            e.printStackTrace();
             System.err.println(e.getMessage());
             System.exit(1);
         }
@@ -66,7 +67,6 @@ public class ServidorEscuchaUDP extends Thread{
         // realizamos el envio
         socket.send(envPaquete);
         System.out.println("Mensaje saliente del servidor \""+
-                (new String(envPaquete.getData(),0,envPaquete.getLength()))+
                 "\" al cliente " + addressCliente + ": "+puertoCliente);
     }
 }

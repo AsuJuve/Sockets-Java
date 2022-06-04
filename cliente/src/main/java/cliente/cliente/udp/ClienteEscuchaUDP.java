@@ -19,7 +19,7 @@ import org.json.simple.JSONObject;
 public class ClienteEscuchaUDP extends Thread{
     protected BufferedReader in;
     //Definimos el sockets, número de bytes del buffer, y mensaje.
-    protected final int MAX_BUFFER=32768;
+    protected final int MAX_BUFFER=65536;
     protected final int PUERTO_CLIENTE;
     protected DatagramSocket socket;
     protected InetAddress address;

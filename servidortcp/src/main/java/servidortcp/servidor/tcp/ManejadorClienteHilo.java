@@ -26,10 +26,8 @@ public class ManejadorClienteHilo extends Thread {
         String mensaje = "";
         int size;
         size = manejadorCliente.getClienteIn().readInt();
-        System.out.println(size);
 
         if (size > 0) {
-          System.out.println("Soy un hilo XD");
           byte[] archivoBytes = new byte[size];
           manejadorCliente.getClienteIn().readFully(archivoBytes, 0, archivoBytes.length);
           mensaje = new String(archivoBytes);
@@ -47,9 +45,7 @@ public class ManejadorClienteHilo extends Thread {
   }
 
   private void enviaArchivo(byte[] archivoBytes, String ipCliente) throws Exception {
-    System.out.println(ipCliente);
     for (ManejadorCliente cliente : clientes) {
-      System.out.println(cliente.getCliente().getInetAddress().toString());
       if (cliente.getCliente().getInetAddress().toString().equals(ipCliente)) {
         System.out.println("Enviando a " + ipCliente);
         cliente.getClienteOut().writeInt(archivoBytes.length);

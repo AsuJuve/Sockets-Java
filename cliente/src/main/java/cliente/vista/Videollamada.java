@@ -23,7 +23,7 @@ public class Videollamada extends JFrame {
   public Videollamada() {
     this.videoArea = new ImagePanel();
     add(videoArea, BorderLayout.CENTER);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     setSize(600, 600);
   }
 
