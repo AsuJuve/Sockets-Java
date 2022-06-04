@@ -14,7 +14,7 @@ public class ServidorEscuchaUDP extends Thread{
     
     protected InetAddress addressCliente;
     protected byte[] mensaje2_bytes;
-    protected final int MAX_BUFFER=256;
+    protected final int MAX_BUFFER=32768;
     protected DatagramPacket paquete;
     protected byte[] mensaje_bytes;
     protected DatagramPacket envPaquete;

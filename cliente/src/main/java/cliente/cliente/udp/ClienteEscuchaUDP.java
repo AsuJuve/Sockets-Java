@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
 public class ClienteEscuchaUDP extends Thread{
     protected BufferedReader in;
     //Definimos el sockets, número de bytes del buffer, y mensaje.
-    protected final int MAX_BUFFER=256;
+    protected final int MAX_BUFFER=32768;
     protected final int PUERTO_CLIENTE;
     protected DatagramSocket socket;
     protected InetAddress address;
@@ -48,9 +48,14 @@ public class ClienteEscuchaUDP extends Thread{
                 JSONObject data = (JSONObject) JSONValue.parse(cadenaMensaje);
                 String mensaje = (String) data.get("mensaje");
                 String ip = servPaquete.getAddress().toString();
+                String tipo = (String) data.get("tipo");
 
-                JTextArea chatArea = gui.getChatArea();
-                chatArea.setText(chatArea.getText()+"\n->"+ip+": "+mensaje);
+                if (tipo.equals("mensaje")) {
+                  JTextArea chatArea = gui.getChatArea();
+                  chatArea.setText(chatArea.getText()+"\n->"+ip+": "+mensaje);
+                } else if (tipo.equals("video")) {
+                  System.out.println("Video recibido");
+                }
             } while (true);
         }
         catch (Exception e) {

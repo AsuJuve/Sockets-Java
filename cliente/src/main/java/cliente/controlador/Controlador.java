@@ -1,19 +1,23 @@
 package cliente.controlador;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
 import java.util.Base64;
-
+import java.util.zip.Deflater;
 import java.nio.ByteBuffer;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import cliente.cliente.tcp.ClienteTCP;
 import cliente.cliente.udp.ClienteUDP;
+import cliente.compresion.Compresor;
 import cliente.tiempo.Cronometro;
 
 import org.json.simple.JSONObject;
@@ -23,12 +27,10 @@ import com.github.sarxos.webcam.Webcam;
 public class Controlador {
   private ClienteUDP clienteUDP;
   private ClienteTCP clienteTCP;
-  private Webcam webcam;
 
   public Controlador(ClienteUDP clienteUDP, ClienteTCP clienteTCP) {
     this.clienteUDP = clienteUDP;
     this.clienteTCP = clienteTCP;
-    this.webcam = Webcam.getDefault();
   }
 
   public void sendMessage(JTextArea chatArea, JTextField messageField, JTextField ipField) {
@@ -55,9 +57,8 @@ public class Controlador {
     enviarArchivo.start();
   }
 
-  public void videoCall() {
-    webcam.open();
-    ByteBuffer image = webcam.getImageBytes();
-    System.out.println(image.limit());
+  public void videoCall(JTextField ipField) {
+    EnviarVideo enviarVideo = new EnviarVideo(this.clienteUDP, ipField);
+    enviarVideo.start();
   }
 }
