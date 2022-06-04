@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import java.util.Base64;
 
+import java.nio.ByteBuffer;
+
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -16,13 +18,17 @@ import cliente.tiempo.Cronometro;
 
 import org.json.simple.JSONObject;
 
+import com.github.sarxos.webcam.Webcam;
+
 public class Controlador {
   private ClienteUDP clienteUDP;
   private ClienteTCP clienteTCP;
+  private Webcam webcam;
 
   public Controlador(ClienteUDP clienteUDP, ClienteTCP clienteTCP) {
     this.clienteUDP = clienteUDP;
     this.clienteTCP = clienteTCP;
+    this.webcam = Webcam.getDefault();
   }
 
   public void sendMessage(JTextArea chatArea, JTextField messageField, JTextField ipField) {
@@ -50,6 +56,8 @@ public class Controlador {
   }
 
   public void videoCall() {
-    System.out.println("TODO!");
+    webcam.open();
+    ByteBuffer image = webcam.getImageBytes();
+    System.out.println(image.limit());
   }
 }
