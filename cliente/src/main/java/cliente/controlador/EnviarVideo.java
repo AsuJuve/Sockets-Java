@@ -29,29 +29,29 @@ public class EnviarVideo extends Thread {
   @Override
   public void run() {
     webcam.open();
-    BufferedImage image = webcam.getImage();
+    do {
+      BufferedImage image = webcam.getImage();
 
-    image = Compresor.compress(image, 0.05f);
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      image = Compresor.compress(image, 0.05f);
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-    try {
-      ImageIO.write(image, "jpg", baos);
+      try {
+          ImageIO.write(image, "jpg", baos);
 
-      byte[] archivoBytes = baos.toByteArray();
+          byte[] archivoBytes = baos.toByteArray();
 
-      String mensaje = Base64.getEncoder().encodeToString(archivoBytes);
+          String mensaje = Base64.getEncoder().encodeToString(archivoBytes);
 
-      JSONObject data = new JSONObject();
-      data.put("tipo", "video");
-      data.put("ipDestino", ip);
-      data.put("mensaje", mensaje);
+          JSONObject data = new JSONObject();
+          data.put("tipo", "video");
+          data.put("ipDestino", ip);
+          data.put("mensaje", mensaje);
 
-      clienteUDP.enviarMensaje(data.toString());
-
-
-    } catch (IOException e) {
-
-    }
+          clienteUDP.enviarMensaje(data.toString());
+      } catch (IOException e) {
+        break;
+      }
+    } while (true);
 
     webcam.close();
     
