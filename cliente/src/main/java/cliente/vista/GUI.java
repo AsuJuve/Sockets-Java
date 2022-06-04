@@ -29,6 +29,7 @@ public class GUI extends JFrame {
   static final Color LIGHT_BACKGROUND = new Color(0x2a2b36);
   static final Color MAIN_COLOR = new Color(0x7aa2f7);
 
+  private Videollamada videollamada;
   private JPanel mainPanel;
   private JPanel ipPanel;
   private JLabel ipLabel;
@@ -44,6 +45,7 @@ public class GUI extends JFrame {
 
   public GUI(Controlador controlador) {
 
+    this.videollamada = new Videollamada();
     this.controlador = controlador;
 
     mainPanel = new JPanel();
@@ -172,5 +174,9 @@ public class GUI extends JFrame {
 
   public JTextArea getChatArea(){
     return this.chatArea;
+  }
+
+  public Videollamada getVideollamada(){
+    return this.videollamada;
   }
 }
